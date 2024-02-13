@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:reddit/core/common/sign_in_button.dart';
 
 import '../../../core/constants/constants.dart';
@@ -42,8 +43,8 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              Constants.loginEmotePath,
+            child: Lottie.asset(
+              'assets/animations/reddit_logo.json',
               height: 400,
             ),
           ),

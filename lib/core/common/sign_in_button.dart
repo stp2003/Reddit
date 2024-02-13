@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../theme/pallete.dart';
-import '../constants/constants.dart';
 
 class SignInButton extends StatelessWidget {
   final bool isFromLogin;
@@ -17,9 +17,9 @@ class SignInButton extends StatelessWidget {
       padding: const EdgeInsets.all(18.0),
       child: ElevatedButton.icon(
         onPressed: () {},
-        icon: Image.asset(
-          Constants.googlePath,
-          width: 35,
+        icon: Lottie.asset(
+          'assets/animations/google.json',
+          width: 55.0,
         ),
         label: const Text(
           'Continue with Google',
