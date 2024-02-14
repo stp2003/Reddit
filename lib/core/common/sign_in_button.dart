@@ -23,7 +23,10 @@ class SignInButton extends StatelessWidget {
         ),
         label: const Text(
           'Continue with Google',
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(
+            fontSize: 18.0,
+            letterSpacing: 0.5,
+          ),
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: Pallete.greyColor,
