@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:reddit/core/failure.dart';
+import 'package:reddit/core/type_def.dart';
 import 'package:reddit/model/user_model.dart';
 
 import '../../../core/constants/constants.dart';
@@ -33,7 +36,7 @@ class AuthRepository {
       _firestore.collection(FirebaseConstants.usersCollection);
 
   //??
-  void signInWithGoogle() async {
+  FutureEither<UserModel> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
@@ -57,21 +60,28 @@ class AuthRepository {
           uid: userCredential.user!.uid,
           isAuthenticated: true,
           karma: 0,
-          awards: [
-            'awesomeAns',
-            'gold',
-            'platinum',
-            'helpful',
-            'plusone',
-            'rocket',
-            'thankyou',
-            'til',
-          ],
+          awards: [],
         );
         await _users.doc(userCredential.user!.uid).set(userModel.toMap());
+      } else {
+        userModel = await getUserData(userCredential.user!.uid).first;
       }
+      return right(userModel);
     } catch (e) {
-      print(e);
+      return left(Failure(e.toString()));
     }
+  }
+
+  Stream<UserModel> getUserData(String uid) {
+    return _users.doc(uid).snapshots().map(
+          (event) => UserModel.fromMap(
+            event.data() as Map<String, dynamic>,
+          ),
+        );
+  }
+
+  void logOut() async {
+    await _googleSignIn.signOut();
+    await _auth.signOut();
   }
 }
