@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routemaster/routemaster.dart';
 
+import '../../../core/common/error.dart';
+import '../../../core/common/loader.dart';
+import '../../community/controller/community_controller.dart';
+
 class CommunityListDrawer extends ConsumerWidget {
   const CommunityListDrawer({super.key});
 
@@ -20,6 +24,28 @@ class CommunityListDrawer extends ConsumerWidget {
               title: const Text('Create Community'),
               onTap: () => navigateToCommunity(context),
             ),
+            ref.watch(userCommunitiesProvider).when(
+                  data: (communities) => Expanded(
+                    child: ListView.builder(
+                      itemCount: communities.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final community = communities[index];
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(community.avatar),
+                            radius: 16.0,
+                          ),
+                          title: Text('r/${community.name}'),
+                          onTap: () {},
+                        );
+                      },
+                    ),
+                  ),
+                  error: (error, stackTrace) => ErrorText(
+                    error: error.toString(),
+                  ),
+                  loading: () => const Loader(),
+                ),
           ],
         ),
       ),
