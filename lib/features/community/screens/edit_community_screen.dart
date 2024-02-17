@@ -9,6 +9,8 @@ import 'package:reddit/theme/pallete.dart';
 import '../../../core/common/error.dart';
 import '../../../core/common/loader.dart';
 import '../../../core/constants/constants.dart';
+import '../../../core/utils.dart';
+import '../../../model/community_model.dart';
 import '../controller/community_controller.dart';
 
 class EditCommunityScreen extends ConsumerStatefulWidget {
@@ -30,6 +32,57 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
   Uint8List? bannerWebFile;
   Uint8List? profileWebFile;
 
+  void selectBannerImage() async {
+    final res = await pickImage();
+
+    if (res != null) {
+      if (kIsWeb) {
+        setState(
+          () {
+            bannerWebFile = res.files.first.bytes;
+          },
+        );
+      } else {
+        setState(
+          () {
+            bannerFile = File(res.files.first.path!);
+          },
+        );
+      }
+    }
+  }
+
+  void selectProfileImage() async {
+    final res = await pickImage();
+
+    if (res != null) {
+      if (kIsWeb) {
+        setState(
+          () {
+            profileWebFile = res.files.first.bytes;
+          },
+        );
+      } else {
+        setState(
+          () {
+            profileFile = File(res.files.first.path!);
+          },
+        );
+      }
+    }
+  }
+
+  void save(Community community) {
+    ref.read(communityControllerProvider.notifier).editCommunity(
+          profileFile: profileFile,
+          bannerFile: bannerFile,
+          context: context,
+          community: community,
+          profileWebFile: profileWebFile,
+          bannerWebFile: bannerWebFile,
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(communityControllerProvider);
@@ -43,7 +96,7 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
               centerTitle: false,
               actions: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => save(community),
                   child: const Text(
                     'Save',
                     style: TextStyle(
@@ -65,7 +118,7 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                           child: Stack(
                             children: [
                               GestureDetector(
-                                onTap: () {},
+                                onTap: selectBannerImage,
                                 child: DottedBorder(
                                   borderType: BorderType.RRect,
                                   radius: const Radius.circular(10),
@@ -80,9 +133,15 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: bannerWebFile != null
-                                        ? Image.memory(bannerWebFile!)
+                                        ? Image.memory(
+                                            bannerWebFile!,
+                                            fit: BoxFit.cover,
+                                          )
                                         : bannerFile != null
-                                            ? Image.file(bannerFile!)
+                                            ? Image.file(
+                                                bannerFile!,
+                                                fit: BoxFit.cover,
+                                              )
                                             : community.banner.isEmpty ||
                                                     community.banner ==
                                                         Constants.bannerDefault
@@ -94,6 +153,7 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                                                   )
                                                 : Image.network(
                                                     community.banner,
+                                                    fit: BoxFit.cover,
                                                   ),
                                   ),
                                 ),
@@ -102,7 +162,7 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                                 bottom: 20,
                                 left: 20,
                                 child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: selectProfileImage,
                                   child: profileWebFile != null
                                       ? CircleAvatar(
                                           backgroundImage: MemoryImage(
