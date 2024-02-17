@@ -20,7 +20,9 @@ class CommunityScreen extends ConsumerWidget {
   }
 
   void joinCommunity(WidgetRef ref, Community community, BuildContext context) {
-    //ref.read(communityControllerProvider.notifier).joinCommunity(community, context);
+    ref
+        .read(communityControllerProvider.notifier)
+        .joinCommunity(community, context);
   }
 
   @override
@@ -90,7 +92,10 @@ class CommunityScreen extends ConsumerWidget {
                                       )
                                     : OutlinedButton(
                                         onPressed: () => joinCommunity(
-                                            ref, community, context),
+                                          ref,
+                                          community,
+                                          context,
+                                        ),
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -120,7 +125,7 @@ class CommunityScreen extends ConsumerWidget {
                   ),
                 ];
               },
-              body: SizedBox(),
+              body: const SizedBox(),
             ),
             error: (error, stackTrace) => ErrorText(error: error.toString()),
             loading: () => const Loader(),
