@@ -4,12 +4,17 @@ import 'package:routemaster/routemaster.dart';
 
 import '../../../core/common/error.dart';
 import '../../../core/common/loader.dart';
+import '../../../model/community_model.dart';
 import '../../community/controller/community_controller.dart';
 
 class CommunityListDrawer extends ConsumerWidget {
   const CommunityListDrawer({super.key});
 
-  void navigateToCommunity(BuildContext context) {
+  void navigateToCommunity(BuildContext context, Community community) {
+    Routemaster.of(context).push('/r/${community.name}');
+  }
+
+  void navigateToCreateCommunity(BuildContext context) {
     Routemaster.of(context).push('/create-community');
   }
 
@@ -22,7 +27,7 @@ class CommunityListDrawer extends ConsumerWidget {
             ListTile(
               leading: const Icon(Icons.add),
               title: const Text('Create Community'),
-              onTap: () => navigateToCommunity(context),
+              onTap: () => navigateToCreateCommunity(context),
             ),
             ref.watch(userCommunitiesProvider).when(
                   data: (communities) => Expanded(
@@ -36,7 +41,9 @@ class CommunityListDrawer extends ConsumerWidget {
                             radius: 16.0,
                           ),
                           title: Text('r/${community.name}'),
-                          onTap: () {},
+                          onTap: () {
+                            navigateToCommunity(context, community);
+                          },
                         );
                       },
                     ),

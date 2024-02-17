@@ -3,6 +3,7 @@ import 'package:reddit/features/home/screen/home_screen.dart';
 import 'package:routemaster/routemaster.dart';
 
 import 'features/auth/screen/login_screen.dart';
+import 'features/community/screens/community_screen.dart';
 import 'features/community/screens/create_community_screen.dart';
 
 final loggedOutRoute = RouteMap(
@@ -20,6 +21,11 @@ final loggedInRoute = RouteMap(
         ),
     '/create-community': (_) => const MaterialPage(
           child: CreateCommunityScreen(),
+        ),
+    '/r/:name': (route) => MaterialPage(
+          child: CommunityScreen(
+            name: route.pathParameters['name']!,
+          ),
         ),
   },
 );
