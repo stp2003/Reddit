@@ -39,11 +39,11 @@ class _AddModsScreenState extends ConsumerState<AddModsScreen> {
   }
 
   void saveMods() {
-    // ref.read(communityControllerProvider.notifier).addMods(
-    //   widget.name,
-    //   uids.toList(),
-    //   context,
-    // );
+    ref.read(communityControllerProvider.notifier).addMods(
+          widget.name,
+          uids.toList(),
+          context,
+        );
   }
 
   @override
