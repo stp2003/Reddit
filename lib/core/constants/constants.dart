@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../features/feed/screen/feed_screen.dart';
+import '../../features/post/add_post_screen.dart';
+
 class Constants {
   static const logoPath = 'assets/images/logo.png';
   static const loginEmotePath = 'assets/images/loginEmote.png';
@@ -16,6 +19,11 @@ class Constants {
       IconData(0xe801, fontFamily: 'MyFlutterApp', fontPackage: null);
 
   static const awardsPath = 'assets/images/awards';
+
+  static const tabWidgets = [
+    FeedScreen(),
+    AddPostScreen(),
+  ];
 
   static const awards = {
     'awesomeAns': '${Constants.awardsPath}/awesomeanswer.png',
