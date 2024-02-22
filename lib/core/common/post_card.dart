@@ -129,11 +129,15 @@ class PostCard extends ConsumerWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          'r/${post.communityName}',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
+                                        GestureDetector(
+                                          onTap: () =>
+                                              navigateToCommunity(context),
+                                          child: Text(
+                                            'r/${post.communityName}',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                         GestureDetector(
@@ -266,13 +270,17 @@ class PostCard extends ConsumerWidget {
                                 ],
                               ),
                               ref
-                                  .watch(getCommunityByNameProvider(
-                                      post.communityName))
+                                  .watch(
+                                    getCommunityByNameProvider(
+                                      post.communityName,
+                                    ),
+                                  )
                                   .when(
                                     data: (data) {
                                       if (data.mods.contains(user.uid)) {
                                         return IconButton(
-                                          onPressed: () {},
+                                          onPressed: () =>
+                                              deletePost(ref, context),
                                           icon: const Icon(
                                             Icons.admin_panel_settings,
                                           ),
