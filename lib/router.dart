@@ -9,6 +9,7 @@ import 'features/community/screens/create_community_screen.dart';
 import 'features/community/screens/edit_community_screen.dart';
 import 'features/community/screens/mod_tools_screen.dart';
 import 'features/post/screen/add_post_type_screen.dart';
+import 'features/post/screen/comments_screen.dart';
 import 'features/user_profile/screens/edit_profile_screen.dart';
 import 'features/user_profile/screens/user_profile_screen.dart';
 
@@ -61,6 +62,11 @@ final loggedInRoute = RouteMap(
     '/add-post/:type': (routeData) => MaterialPage(
           child: AddPostTypeScreen(
             type: routeData.pathParameters['type']!,
+          ),
+        ),
+    '/post/:postId/comments': (route) => MaterialPage(
+          child: CommentsScreen(
+            postId: route.pathParameters['postId']!,
           ),
         ),
   },
