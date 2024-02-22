@@ -25,12 +25,13 @@ final postControllerProvider = StateNotifierProvider<PostController, bool>(
   },
 );
 
-// final userPostsProvider =
-//     StreamProvider.family((ref, List<Community> communities) {
-//   final postController = ref.watch(postControllerProvider.notifier);
-//   return postController.fetchUserPosts(communities);
-// });
-//
+final userPostsProvider = StreamProvider.family(
+  (ref, List<Community> communities) {
+    final postController = ref.watch(postControllerProvider.notifier);
+    return postController.fetchUserPosts(communities);
+  },
+);
+
 // final guestPostsProvider = StreamProvider((ref) {
 //   final postController = ref.watch(postControllerProvider.notifier);
 //   return postController.fetchGuestPosts();
