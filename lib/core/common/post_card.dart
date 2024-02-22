@@ -6,6 +6,7 @@ import 'package:routemaster/routemaster.dart';
 
 import '../../features/auth/controller/auth_controller.dart';
 import '../../features/community/controller/community_controller.dart';
+import '../../features/post/controller/post_controller.dart';
 import '../../model/post_model.dart';
 import '../../theme/pallete.dart';
 import '../constants/constants.dart';
@@ -14,26 +15,27 @@ import 'loader.dart';
 
 class PostCard extends ConsumerWidget {
   final Post post;
+
   const PostCard({
     super.key,
     required this.post,
   });
 
-  // void deletePost(WidgetRef ref, BuildContext context) async {
-  //   ref.read(postControllerProvider.notifier).deletePost(post, context);
-  // }
-  //
-  // void upvotePost(WidgetRef ref) async {
-  //   ref.read(postControllerProvider.notifier).upvote(post);
-  // }
-  //
-  // void downvotePost(WidgetRef ref) async {
-  //   ref.read(postControllerProvider.notifier).downvote(post);
-  // }
-  //
-  // void awardPost(WidgetRef ref, String award, BuildContext context) async {
-  //   ref.read(postControllerProvider.notifier).awardPost(post: post, award: award, context: context);
-  // }
+  void deletePost(WidgetRef ref, BuildContext context) async {
+    ref.read(postControllerProvider.notifier).deletePost(post, context);
+  }
+
+// void upvotePost(WidgetRef ref) async {
+//   ref.read(postControllerProvider.notifier).upvote(post);
+// }
+//
+// void downvotePost(WidgetRef ref) async {
+//   ref.read(postControllerProvider.notifier).downvote(post);
+// }
+//
+// void awardPost(WidgetRef ref, String award, BuildContext context) async {
+//   ref.read(postControllerProvider.notifier).awardPost(post: post, award: award, context: context);
+// }
 
   void navigateToUser(BuildContext context) {
     Routemaster.of(context).push('/u/${post.uid}');
@@ -149,7 +151,7 @@ class PostCard extends ConsumerWidget {
                               ),
                               if (post.uid == user.uid)
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () => deletePost(ref, context),
                                   icon: Icon(
                                     Icons.delete,
                                     color: Pallete.redColor,
