@@ -207,16 +207,16 @@ class PostController extends StateNotifier<bool> {
     );
   }
 
-// void upvote(Post post) async {
-//   final uid = _ref.read(userProvider)!.uid;
-//   _postRepository.upvote(post, uid);
-// }
-//
-// void downvote(Post post) async {
-//   final uid = _ref.read(userProvider)!.uid;
-//   _postRepository.downvote(post, uid);
-// }
-//
+  void upvote(Post post) async {
+    final uid = _ref.read(userProvider)!.uid;
+    _postRepository.upvote(post, uid);
+  }
+
+  void downvote(Post post) async {
+    final uid = _ref.read(userProvider)!.uid;
+    _postRepository.downvote(post, uid);
+  }
+
 // Stream<Post> getPostById(String postId) {
 //   return _postRepository.getPostById(postId);
 // }

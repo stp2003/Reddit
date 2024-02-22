@@ -25,14 +25,14 @@ class PostCard extends ConsumerWidget {
     ref.read(postControllerProvider.notifier).deletePost(post, context);
   }
 
-// void upvotePost(WidgetRef ref) async {
-//   ref.read(postControllerProvider.notifier).upvote(post);
-// }
-//
-// void downvotePost(WidgetRef ref) async {
-//   ref.read(postControllerProvider.notifier).downvote(post);
-// }
-//
+  void upvotePost(WidgetRef ref) async {
+    ref.read(postControllerProvider.notifier).upvote(post);
+  }
+
+  void downvotePost(WidgetRef ref) async {
+    ref.read(postControllerProvider.notifier).downvote(post);
+  }
+
 // void awardPost(WidgetRef ref, String award, BuildContext context) async {
 //   ref.read(postControllerProvider.notifier).awardPost(post: post, award: award, context: context);
 // }
@@ -225,7 +225,7 @@ class PostCard extends ConsumerWidget {
                                 Row(
                                   children: [
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () => upvotePost(ref),
                                       icon: Icon(
                                         Constants.up,
                                         size: 30,
@@ -239,7 +239,7 @@ class PostCard extends ConsumerWidget {
                                       style: const TextStyle(fontSize: 17),
                                     ),
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () => downvotePost(ref),
                                       icon: Icon(
                                         Constants.down,
                                         size: 30,
