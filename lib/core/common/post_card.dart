@@ -309,9 +309,10 @@ class PostCard extends ConsumerWidget {
                                                   crossAxisCount: 4,
                                                 ),
                                                 itemCount: user.awards.length,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
+                                                itemBuilder: (
+                                                  BuildContext context,
+                                                  int index,
+                                                ) {
                                                   final award =
                                                       user.awards[index];
 
