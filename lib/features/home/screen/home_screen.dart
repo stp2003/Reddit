@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reddit/core/constants/constants.dart';
@@ -37,6 +38,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider)!;
     final currentTheme = ref.watch(themeNotifierProvider);
+    final isGuest = !user.isAuthenticated;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
@@ -76,23 +78,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       body: Constants.tabWidgets[_page],
       drawer: const CommunityListDrawer(),
-      endDrawer: const ProfileDrawer(),
-      bottomNavigationBar: CupertinoTabBar(
-        activeColor: currentTheme.iconTheme.color,
-        backgroundColor: currentTheme.backgroundColor,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: '',
-          ),
-        ],
-        onTap: onPageChanged,
-        currentIndex: _page,
-      ),
+      endDrawer: isGuest ? null : const ProfileDrawer(),
+      bottomNavigationBar: isGuest || kIsWeb
+          ? null
+          : CupertinoTabBar(
+              activeColor: currentTheme.iconTheme.color,
+              backgroundColor: currentTheme.backgroundColor,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.add),
+                  label: '',
+                ),
+              ],
+              onTap: onPageChanged,
+              currentIndex: _page,
+            ),
     );
   }
 }
