@@ -35,10 +35,12 @@ final userPostsProvider = StreamProvider.family(
   },
 );
 
-// final guestPostsProvider = StreamProvider((ref) {
-//   final postController = ref.watch(postControllerProvider.notifier);
-//   return postController.fetchGuestPosts();
-// });
+final guestPostsProvider = StreamProvider(
+  (ref) {
+    final postController = ref.watch(postControllerProvider.notifier);
+    return postController.fetchGuestPosts();
+  },
+);
 
 final getPostByIdProvider = StreamProvider.family(
   (ref, String postId) {

@@ -233,7 +233,9 @@ class PostCard extends ConsumerWidget {
                                 Row(
                                   children: [
                                     IconButton(
-                                      onPressed: () => upvotePost(ref),
+                                      onPressed: isGuest
+                                          ? () {}
+                                          : () => upvotePost(ref),
                                       icon: Icon(
                                         Constants.up,
                                         size: 30,
@@ -247,7 +249,9 @@ class PostCard extends ConsumerWidget {
                                       style: const TextStyle(fontSize: 17),
                                     ),
                                     IconButton(
-                                      onPressed: () => downvotePost(ref),
+                                      onPressed: isGuest
+                                          ? () {}
+                                          : () => downvotePost(ref),
                                       icon: Icon(
                                         Constants.down,
                                         size: 30,
