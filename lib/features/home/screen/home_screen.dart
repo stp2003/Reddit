@@ -6,6 +6,7 @@ import 'package:reddit/core/constants/constants.dart';
 import 'package:reddit/features/auth/controller/auth_controller.dart';
 import 'package:reddit/features/home/drawers/community_list_drawer.dart';
 import 'package:reddit/features/home/drawers/profile_drawer.dart';
+import 'package:routemaster/routemaster.dart';
 
 import '../../../theme/pallete.dart';
 import '../delegates/search_community_delegate.dart';
@@ -60,7 +61,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             icon: const Icon(Icons.search),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Routemaster.of(context).push('/add-post');
+            },
             icon: const Icon(Icons.add),
           ),
           Builder(
