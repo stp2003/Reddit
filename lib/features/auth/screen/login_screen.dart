@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:reddit/core/common/sign_in_button.dart';
 import 'package:reddit/features/auth/controller/auth_controller.dart';
+import 'package:reddit/responsive/responsive.dart';
 
 import '../../../core/common/loader.dart';
 import '../../../core/constants/constants.dart';
@@ -59,7 +60,7 @@ class LoginScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const SignInButton(),
+                const Responsive(child: SignInButton()),
               ],
             ),
     );
