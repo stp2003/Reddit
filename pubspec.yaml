@@ -49,6 +49,7 @@ dependencies:
   shared_preferences: ^2.2.2
   uuid: ^4.3.3
   any_link_preview: ^3.0.1
+  icons_launcher: ^2.1.7
 
 dev_dependencies:
   flutter_test:
